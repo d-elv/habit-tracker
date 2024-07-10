@@ -1,0 +1,147 @@
+.habit-list-item {
+  width: 550px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr;
+  justify-items: left;
+  border-bottom: 1px solid var(--middle);
+  padding-bottom: 0.1em;
+  margin-bottom: 0.2em;
+}
+
+.button-and-habitName-link {
+  display: flex;
+  align-items: center;
+}
+
+.view-habits-span-link {
+  color: rgb(49, 34, 62);
+  text-decoration: none;
+  font-style: italic;
+}
+
+.grid-element-styling {
+  border: 1px solid cadetblue;
+}
+
+.habitName-link {
+  text-decoration: none;
+  margin-left: 0.5em;
+  color: rgb(9, 6, 6);
+  font-size: 1.2rem;
+  padding-left: 0.3em;
+  padding-right: 0.3em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  border-radius: 4px;
+  background-color: var(--middle);
+}
+
+.complete-habit-button {
+  background-color: rgb(226, 226, 226);
+  border-radius: 50%;
+  padding: 0.7em;
+}
+
+.complete-habit-button:active {
+  background-color: rgb(189, 189, 189);
+}
+
+.complete-habit-button:hover {
+  cursor: pointer;
+}
+
+@keyframes turnGreen {
+  0% {
+    background-color: rgb(226, 226, 226);
+  }
+  100% {
+    background-color: rgb(60, 235, 60);
+  }
+}
+
+.turn-green {
+  animation-name: turnGreen;
+  animation-duration: 2.1s;
+  animation-timing-function: ease-out;
+}
+
+.tracker-progress-list {
+  display: flex;
+  padding-left: 0;
+  align-items: center;
+}
+
+.tracker-progress-list-items {
+  list-style-type: none;
+}
+
+.list-of-habits {
+  padding: 0;
+  margin-top: 0;
+}
+
+.tracker-progress-box {
+  padding: 0.4em;
+  background-color: red;
+  margin: 4px;
+}
+
+.day-completed {
+  background-color: green;
+}
+
+.day-to-come {
+  background-color: rgb(165, 165, 0);
+}
+
+.all-ticked-off-subheading {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-top: 0;
+  color: rgb(80, 72, 72);
+}
+
+.delete-button {
+  width: fit-content;
+  background-color: rgb(157, 5, 5);
+  border-radius: 4px;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+  justify-self: end;
+  border: none;
+  color: rgb(243, 241, 241);
+}
+
+.delete-button:hover {
+  cursor: pointer;
+}
+
+.invisible {
+  display: none;
+}
+
+.tooltip-arrow {
+  position: absolute;
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  margin-left: 0.34em;
+  margin-top: -0.4em;
+  transform: rotate(45deg);
+  animation-name: fadeIn;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

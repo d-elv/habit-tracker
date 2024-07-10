@@ -1,0 +1,104 @@
+:root {
+  --darkest: rgb(2, 81, 89);
+  --second-darkest: rgb(62, 132, 140);
+  --middle: rgb(122, 184, 191);
+  --lightest: rgb(196, 238, 242);
+  --brown: rgb(166, 116, 88);
+}
+
+header {
+  display: grid;
+  grid-template-columns: 1fr repeat(1, auto) 1fr;
+  column-gap: 5px;
+  justify-items: center;
+  margin-bottom: 1em;
+}
+
+.header-middle {
+  grid-column-start: 2;
+  color: var(--darkest);
+}
+
+.header-right {
+  margin-left: auto;
+  margin-right: 1em;
+  margin-top: 1em;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container {
+  border-radius: 8px;
+  padding: 15px;
+  padding-left: 1.2em;
+  padding-right: 1.2em;
+  border: 2px solid;
+  border-color: var(--middle);
+}
+
+.habit-creation {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.habit-name-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+}
+
+.habit-name-container {
+  margin-top: 0.5em;
+}
+.habit-name-container:nth-child(1) {
+  margin-top: 0em;
+}
+
+.habit-input {
+  width: calc(100% - 1.2em);
+  font-size: 1rem;
+  border-radius: 10px;
+  padding-left: 0.4em;
+  outline: none;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+  margin-top: 4px;
+}
+
+.habit-input-button {
+  width: calc(100% - 1.2em);
+  background-color: var(--middle);
+  font-size: 1rem;
+  border-radius: 10px;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+  border: none;
+  outline: none;
+}
+
+.habit-input-button:hover {
+  cursor: pointer;
+}
+
+.days-to-track {
+  width: 2em;
+  height: 2.5em;
+  border-radius: 4px;
+  border: 1px solid var(--second-darkest);
+  padding-right: 0.2em;
+  text-align: center;
+}
+
+.days-to-track-subtitle {
+  margin: 0;
+  margin-right: 6px;
+  font-size: 0.9rem;
+  color: rgb(86, 86, 86);
+  font-style: italic;
+}

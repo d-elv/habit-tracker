@@ -1,0 +1,32 @@
+.dropdown-container {
+  align-self: flex-start;
+  margin-left: 3em;
+}
+
+.completed-habits-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.completed-habits-count {
+  color: rgb(8, 80, 8);
+}
+
+.completed-list {
+  margin: 0;
+  padding: 0;
+}
+
+.habit-name {
+  margin: 0;
+  border-bottom: 1px solid var(--darkest);
+}
+.completed-list-item {
+  list-style-type: none;
+  padding-top: 0.5em;
+  padding-right: 1em;
+  padding-bottom: 0.5em;
+  padding-left: 1em;
+  border: 1px solid var(--middle);
+}

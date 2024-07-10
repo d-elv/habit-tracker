@@ -1,0 +1,49 @@
+.nav-container {
+  border-bottom: 0.5px solid rgb(68, 68, 68);
+  width: 100%;
+}
+
+.nav-list {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-right: 1em;
+  padding: 0;
+}
+
+.nav-list-item {
+  list-style-type: none;
+  text-decoration: none;
+  margin-left: 0.3em;
+  margin-right: 0.3em;
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-size: 1rem;
+  background-color: rgb(84, 180, 192);
+  border: 1px solid rgb(172, 211, 215);
+  border-radius: 6px;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+  color: rgb(9, 6, 6);
+}
+
+.sign-out-button {
+  font-size: 1rem;
+  background-color: rgb(157, 5, 5);
+  border: 1px solid rgb(177, 95, 95);
+  border-radius: 6px;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+  cursor: pointer;
+  color: rgb(243, 241, 241);
+}
