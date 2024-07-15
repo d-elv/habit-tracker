@@ -9,6 +9,8 @@ import { Timestamp } from "firebase/firestore";
 import { useDeleteHabit } from "../../hooks/useDeleteHabit";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { getDate } from "../../hooks/useGetDate";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencil } from "@fortawesome/free-solid-svg-icons";
 
 const formatDate = (firebaseTimestamp: Timestamp): string => {
   const timestampDate = firebaseTimestamp.toDate();
@@ -41,6 +43,7 @@ export const ViewHabits = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [showTooltip, setShowTooltip] = useState(false);
   const [boxToHover, setBoxToHover] = useState<number | null>(null);
+  const [pencilToHover, setPencilToHover] = useState<null | string>(null);
   const habitsItemsRefs = useRef<Array<RefObject<HTMLDivElement>>>([]);
   const habitsRefs = useRef<Array<RefObject<HTMLLIElement>>>([]);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -180,6 +183,18 @@ export const ViewHabits = () => {
     return "day-to-come";
   };
 
+  const handlePencilHover = (habitName: string) => {
+    setPencilToHover(habitName);
+  };
+
+  const handlePencilLeave = () => {
+    setPencilToHover(null);
+  };
+
+  const handleHabitNameChange = (id: string, habitName: string) => {
+    console.log(habitName, id);
+  };
+
   return (
     <>
       {isThisHome === null ? null : isThisHome ? null : <Navbar />}
@@ -236,9 +251,28 @@ export const ViewHabits = () => {
                     onClick={() => handleUpdateHabit(id)}
                   />
                 )}
-                <Link to={`/habits/${habitName}`} className="habitName-link">
-                  {habitName}
-                </Link>
+                <div
+                  className="edit-pencil-and-habit-name"
+                  onMouseEnter={() => handlePencilHover(habitName)}
+                  onMouseLeave={handlePencilLeave}
+                >
+                  <div
+                    className={`edit-pencil-icon ${
+                      pencilToHover === habitName
+                        ? "pencil-visible"
+                        : "pencil-invisible"
+                    }`}
+                    onClick={() => {
+                      handleHabitNameChange(id, habitName);
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faPencil} />
+                  </div>
+
+                  <Link to={`/habits/${habitName}`} className="habitName-link">
+                    {habitName}
+                  </Link>
+                </div>
               </div>
               <ul
                 className="tracker-progress-list"
@@ -289,8 +323,8 @@ export const ViewHabits = () => {
 };
 
 // TODO
+// 2) Add pencil icon for editing habit Name
 
+// COMPLETE
 // 1) Update "You are tracking {habits.length}" code that completedHabits is replaced with
 //    habits that have run their course, completed or unfulfilled.
-
-// 2) Add pencil icon for editing habit Name

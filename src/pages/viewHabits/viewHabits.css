@@ -24,6 +24,46 @@
   border: 1px solid cadetblue;
 }
 
+.edit-pencil-and-habit-name {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.edit-pencil-icon {
+  position: relative;
+  bottom: 1.4em;
+  right: 1.2em;
+  background-color: rgb(196, 238, 242);
+  border: 3px solid rgb(172, 211, 215);
+  border-radius: 8px;
+  color: rgb(40, 40, 40);
+  font-size: 22px;
+  z-index: 1;
+  transition: opacity 0.5s ease-in, transform 0.5s ease-in-out;
+  opacity: 0;
+  transform: translateY(+10px);
+  visibility: hidden;
+}
+
+.edit-pencil-icon:hover {
+  cursor: pointer;
+}
+
+.pencil-visible {
+  opacity: 1;
+  transform: translateY(0px);
+  visibility: visible;
+}
+
+.pencil-invisible {
+  transform: translateY(0px);
+  color: rgb(0, 0, 0, 0);
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(128, 128, 128, 0);
+  transition: none;
+  visibility: hidden;
+}
+
 .habitName-link {
   text-decoration: none;
   margin-left: 0.5em;
@@ -129,7 +169,7 @@
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 3px;
-  margin-left: 0.34em;
+  margin-left: 0.35em;
   margin-top: -0.4em;
   transform: rotate(45deg);
   animation-name: fadeIn;
