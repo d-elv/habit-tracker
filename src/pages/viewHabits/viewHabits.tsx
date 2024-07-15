@@ -43,7 +43,6 @@ type ActiveHabitType = {
 export const ViewHabits = () => {
   const [isThisHome, setIsThisHome] = useState<boolean | null>(null);
   const [buttonClickedId, setButtonClickedId] = useState("");
-  const [habitsDoneTracking, setHabitsDoneTracking] = useState(0);
   const [activeHabitsCount, setActiveHabitsCount] = useState<number>(0);
   const [activeHabits, setActiveHabits] = useState<ActiveHabitType[]>([]);
   const [allActiveHabitsCompleted, setAllActiveHabitsCompleted] = useState<
@@ -194,7 +193,6 @@ export const ViewHabits = () => {
         count = count + 1;
       }
     });
-    setHabitsDoneTracking(count);
     setActiveHabitsCount(habits.length - count);
   };
 
