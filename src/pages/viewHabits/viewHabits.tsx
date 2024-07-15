@@ -1,16 +1,25 @@
 import "./viewHabits.css";
 import "../homePage/homepage.css";
+import "./InputModal.css";
 import { useGetHabits } from "../../hooks/useGetHabits";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { HabitType, DayOfHabitType } from "../../interfaces";
 import { useUpdateHabit } from "../../hooks/useUpdateHabit";
-import { useState, useEffect, useRef, createRef, RefObject } from "react";
-import { Timestamp } from "firebase/firestore";
 import { useDeleteHabit } from "../../hooks/useDeleteHabit";
+import { useUpdateHabitName } from "../../hooks/useUpdateHabitName";
+import {
+  useState,
+  useEffect,
+  useRef,
+  createRef,
+  RefObject,
+  ChangeEvent,
+} from "react";
+import { Timestamp } from "firebase/firestore";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { getDate } from "../../hooks/useGetDate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencil } from "@fortawesome/free-solid-svg-icons";
+import { faPencil, faX } from "@fortawesome/free-solid-svg-icons";
 
 const formatDate = (firebaseTimestamp: Timestamp): string => {
   const timestampDate = firebaseTimestamp.toDate();
@@ -44,13 +53,18 @@ export const ViewHabits = () => {
   const [showTooltip, setShowTooltip] = useState(false);
   const [boxToHover, setBoxToHover] = useState<number | null>(null);
   const [pencilToHover, setPencilToHover] = useState<null | string>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [habitNameToChange, setHabitNameToChange] = useState("");
+  const [idOfHabitToUpdate, setIdOfHabitToUpdate] = useState("");
   const habitsItemsRefs = useRef<Array<RefObject<HTMLDivElement>>>([]);
   const habitsRefs = useRef<Array<RefObject<HTMLLIElement>>>([]);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { habits } = useGetHabits();
   const { updateHabit } = useUpdateHabit();
   const { deleteHabit } = useDeleteHabit();
+  const { updateHabitName } = useUpdateHabitName();
   const location = useLocation();
+  const navigate = useNavigate();
   const todaysFullDate = getDate();
 
   useEffect(() => {
@@ -191,12 +205,81 @@ export const ViewHabits = () => {
     setPencilToHover(null);
   };
 
+  const InputModal = ({
+    habitName,
+    setShowModal,
+    dataToUpdate,
+    id,
+  }: {
+    habitName: string;
+    setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+    dataToUpdate: string;
+    id: string;
+  }) => {
+    const [newHabitName, setNewHabitName] = useState<string>(habitName);
+
+    const handleSubmitHabitNameChange = async (
+      event: ChangeEvent<HTMLFormElement>
+    ) => {
+      event.preventDefault();
+      updateHabitName(id, newHabitName);
+      setShowModal(false);
+      const currentPathname = location.pathname;
+
+      if (currentPathname.includes(habitName.split(" ")[0])) {
+        navigate(`/habits/${newHabitName}`);
+      }
+    };
+
+    return (
+      <>
+        <div className="whole-page">
+          <div className="modal-container">
+            <div className="modal-title-and-close-button">
+              <h2 className="modal-title">Update {dataToUpdate}</h2>
+              <button
+                className="close-modal"
+                onClick={() => setShowModal(false)}
+              >
+                <FontAwesomeIcon icon={faX} />
+              </button>
+            </div>
+            <form onSubmit={handleSubmitHabitNameChange}>
+              <input
+                type="text"
+                placeholder="New habit name here..."
+                className=""
+                defaultValue={habitName}
+                autoFocus
+                onFocus={(event) => event.target.select()}
+                value={newHabitName}
+                onChange={(event) => {
+                  setNewHabitName(event.target.value);
+                }}
+              />
+            </form>
+          </div>
+        </div>
+      </>
+    );
+  };
+
   const handleHabitNameChange = (id: string, habitName: string) => {
-    console.log(habitName, id);
+    setHabitNameToChange(habitName);
+    setIdOfHabitToUpdate(id);
+    setShowModal(true);
   };
 
   return (
     <>
+      {showModal && (
+        <InputModal
+          dataToUpdate="Habit Name"
+          habitName={habitNameToChange}
+          id={idOfHabitToUpdate}
+          setShowModal={setShowModal}
+        />
+      )}
       {isThisHome === null ? null : isThisHome ? null : <Navbar />}
       <header>
         <h1 className="header-middle">
