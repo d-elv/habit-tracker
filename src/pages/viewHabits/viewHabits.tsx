@@ -34,10 +34,21 @@ const findHabitById = (id: string, habits: HabitType[]): HabitType => {
   return habit;
 };
 
+type ActiveHabitType = {
+  habitName: string;
+  id: string;
+  completed: boolean;
+};
+
 export const ViewHabits = () => {
   const [isThisHome, setIsThisHome] = useState<boolean | null>(null);
   const [buttonClickedId, setButtonClickedId] = useState("");
   const [habitsDoneTracking, setHabitsDoneTracking] = useState(0);
+  const [activeHabitsCount, setActiveHabitsCount] = useState<number>(0);
+  const [activeHabits, setActiveHabits] = useState<ActiveHabitType[]>([]);
+  const [allActiveHabitsCompleted, setAllActiveHabitsCompleted] = useState<
+    null | boolean
+  >(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showTooltip, setShowTooltip] = useState(false);
   const [boxToHover, setBoxToHover] = useState<number | null>(null);
@@ -79,6 +90,37 @@ export const ViewHabits = () => {
     return Math.round(differenceInDays);
   };
 
+  const calculateActiveHabits = () => {
+    const habitsStillTracking: ActiveHabitType[] = [];
+    habits.map((habit: HabitType) => {
+      const { id, habitName, habitTrackArray } = habit;
+      const { daysSinceHabitCreated } = getHabitAndDaysSinceCreation(id);
+      if (daysSinceHabitCreated < habitTrackArray.length) {
+        const completed = habitTrackArray[daysSinceHabitCreated].completed;
+        habitsStillTracking.push({ habitName, id, completed });
+      }
+    });
+    setActiveHabits(habitsStillTracking);
+  };
+
+  useEffect(() => {
+    habitsToComplete();
+  }, [activeHabits]);
+
+  const habitsToComplete = () => {
+    const booleanArray = activeHabits.map((habit) => {
+      return habit.completed;
+    });
+    const areAllTrue = () => {
+      return booleanArray.every((item) => item === true);
+    };
+    if (areAllTrue()) {
+      setAllActiveHabitsCompleted(true);
+    } else {
+      setAllActiveHabitsCompleted(false);
+    }
+  };
+
   const getHabitAndDaysSinceCreation = (id: string) => {
     const habitToUpdate = findHabitById(id, habits);
     const habitArrayToUpdate = habitToUpdate.habitTrackArray;
@@ -90,7 +132,7 @@ export const ViewHabits = () => {
     return { habitArrayToUpdate, daysSinceHabitCreated };
   };
 
-  const checkIfComplete = (id: string) => {
+  const checkIfCompleteToday = (id: string) => {
     const { habitArrayToUpdate, daysSinceHabitCreated } =
       getHabitAndDaysSinceCreation(id);
     return habitArrayToUpdate[daysSinceHabitCreated].completed;
@@ -119,7 +161,7 @@ export const ViewHabits = () => {
 
     setButtonClickedId(id);
 
-    if (checkIfComplete(id)) {
+    if (checkIfCompleteToday(id)) {
       completeTodaysHabit(id);
       setButtonClickedId("");
       timeoutRef.current = null;
@@ -153,10 +195,12 @@ export const ViewHabits = () => {
       }
     });
     setHabitsDoneTracking(count);
+    setActiveHabitsCount(habits.length - count);
   };
 
   useEffect(() => {
     getHabitsAreDoneTracking();
+    calculateActiveHabits();
   }, [habits]);
 
   if (isLoading) {
@@ -185,11 +229,24 @@ export const ViewHabits = () => {
       {isThisHome === null ? null : isThisHome ? null : <Navbar />}
       <header>
         <h1 className="header-middle">
-          You are tracking {habits.length - habitsDoneTracking}{" "}
-          {habits.length - habitsDoneTracking === 1 ? "Habit" : "Habits"}
+          You are tracking {activeHabitsCount}{" "}
+          {activeHabitsCount === 1 ? "Habit" : "Habits"}
         </h1>
       </header>
       <ul className="list-of-habits">
+        {allActiveHabitsCompleted && isThisHome ? (
+          <div>
+            <h1 className="all-ticked-off-subheading">
+              Go to{" "}
+              <Link className="view-habits-span-link" to="/habits">
+                View Habits
+              </Link>{" "}
+              to track your habits
+            </h1>
+          </div>
+        ) : (
+          ""
+        )}
         {habits.map((dbHabit: HabitType, index: number) => {
           const { habitName, habitTrackArray, createdAt, id } = dbHabit;
           if (!createdAt) {
@@ -208,18 +265,8 @@ export const ViewHabits = () => {
           }
 
           if (habitTrackArray[daysSinceHabitCreated].completed && isThisHome) {
+            return;
             // Esnures habits ticked off for the day don't render
-            return (
-              <div key={index}>
-                <h1 className="all-ticked-off-subheading">
-                  Go to{" "}
-                  <Link className="view-habits-span-link" to="/habits">
-                    View Habits
-                  </Link>{" "}
-                  to track your habits
-                </h1>
-              </div>
-            );
           }
 
           if (checkAllValuesAreTrue(habitTrackArray)) {
@@ -294,3 +341,8 @@ export const ViewHabits = () => {
 //    habits that have run their course, completed or unfulfilled.
 
 // 2) Add pencil icon for editing habit Name
+
+// 3) Fix arrow pointing at current day so it only shows per habit. Thus only showing correct days.
+
+// 4) Make it so that multiple items can be ticked off at the same time. Currently clicking multiple items during the timeout
+//    for completing a day starts and stops it.
