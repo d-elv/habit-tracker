@@ -413,8 +413,11 @@ export const ViewHabits = () => {
 };
 
 // TODO
-// 2) Add pencil icon for editing habit Name
+
+// 3) Add option to extend habit length?
 
 // COMPLETE
 // 1) Update "You are tracking {habits.length}" code that completedHabits is replaced with
 //    habits that have run their course, completed or unfulfilled.
+
+// 2) Add pencil icon for editing habit Name

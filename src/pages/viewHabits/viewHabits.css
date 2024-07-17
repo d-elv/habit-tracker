@@ -41,7 +41,6 @@
   z-index: 1;
   transition: opacity 0.5s ease-in, transform 0.5s ease-in-out;
   opacity: 0;
-  transform: translateY(+10px);
   visibility: hidden;
 }
 
