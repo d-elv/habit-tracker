@@ -244,19 +244,26 @@ export const ViewHabits = () => {
                 <FontAwesomeIcon icon={faX} />
               </button>
             </div>
-            <form onSubmit={handleSubmitHabitNameChange}>
-              <input
-                type="text"
-                placeholder="New habit name here..."
-                className=""
-                defaultValue={habitName}
-                autoFocus
-                onFocus={(event) => event.target.select()}
-                value={newHabitName}
-                onChange={(event) => {
-                  setNewHabitName(event.target.value);
-                }}
-              />
+            <form onSubmit={handleSubmitHabitNameChange} className="modal-form">
+              <div className="label-and-input-container">
+                <label className="modal-input-label">
+                  Type in new{" "}
+                  <span className="modal-prompt-span">{dataToUpdate}</span>{" "}
+                  below
+                </label>
+                <input
+                  type="text"
+                  placeholder="New habit name here..."
+                  className="modal-input"
+                  defaultValue={habitName}
+                  autoFocus
+                  onFocus={(event) => event.target.select()}
+                  value={newHabitName}
+                  onChange={(event) => {
+                    setNewHabitName(event.target.value);
+                  }}
+                />
+              </div>
             </form>
           </div>
         </div>
