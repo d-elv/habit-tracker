@@ -11,6 +11,7 @@ import { getDaysSinceHabitCreation } from "../../hooks/useGetDaysSinceHabitCreat
 export const CompletedHabits = () => {
   const { habits } = useGetHabits();
   const [completedHabits, setCompletedHabits] = useState(0);
+  const [unfulfilledHabits, setUnfulfilledHabits] = useState(0);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [dropdownSelection, setDropdownSelection] = useState("Completed");
 
@@ -34,6 +35,7 @@ export const CompletedHabits = () => {
       }
     });
     setCompletedHabits(completedCount);
+    setUnfulfilledHabits(unfulfilledCount);
   };
 
   const Dropdown = () => {
@@ -92,10 +94,23 @@ export const CompletedHabits = () => {
         <div className="dropdown-container">
           <Dropdown />
         </div>
+
         <h2 className="subheading">
-          You have completed{" "}
-          <span className="completed-habits-count">{completedHabits}</span>{" "}
-          {completedHabits === 1 ? "Habit" : "Habits"}{" "}
+          {dropdownSelection === "Completed" ? (
+            <div>
+              You have completed{" "}
+              <span className="completed-habits-count">{completedHabits}</span>{" "}
+              {completedHabits === 1 ? "Habit" : "Habits"}{" "}
+            </div>
+          ) : (
+            <div>
+              There are{" "}
+              <span className="unfulfilled-habits-count">
+                {unfulfilledHabits}
+              </span>{" "}
+              unfulfilled {unfulfilledHabits === 1 ? "Habit" : "Habits"}{" "}
+            </div>
+          )}
         </h2>
 
         <div className="completed-habits">

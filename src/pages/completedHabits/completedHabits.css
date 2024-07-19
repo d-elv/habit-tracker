@@ -13,6 +13,10 @@
   color: rgb(8, 80, 8);
 }
 
+.unfulfilled-habits-count {
+  color: rgb(80, 8, 8);
+}
+
 .completed-list {
   margin: 0;
   padding: 0;

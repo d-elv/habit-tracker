@@ -272,6 +272,7 @@ export const ViewHabits = () => {
         navigate(`/habits/${newHabitName}`);
       }
     };
+    console.log(allActiveHabitsCompleted);
 
     return (
       <>
@@ -337,7 +338,7 @@ export const ViewHabits = () => {
         </h1>
       </header>
       <ul className="list-of-habits">
-        {allActiveHabitsCompleted && isThisHome ? (
+        {allActiveHabitsCompleted && isThisHome && activeHabitsCount !== 0 ? (
           <div>
             <h1 className="all-ticked-off-subheading">
               Go to{" "}
@@ -348,7 +349,11 @@ export const ViewHabits = () => {
             </h1>
           </div>
         ) : (
-          ""
+          <div>
+            <h1 className="all-ticked-off-subheading">
+              Add a new habit to track!
+            </h1>
+          </div>
         )}
         {habits.map((dbHabit: HabitType, index: number) => {
           const { habitName, habitTrackArray, createdAt, id } = dbHabit;
@@ -459,7 +464,9 @@ export const ViewHabits = () => {
 
 // TODO
 
-// 3) Add option to extend habit length?
+// 5) Add option to extend habit length?
+
+// 6) Make
 
 // COMPLETE
 // 1) Update "You are tracking {habits.length}" code that completedHabits is replaced with
