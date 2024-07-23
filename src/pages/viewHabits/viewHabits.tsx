@@ -114,9 +114,10 @@ export const ViewHabits = () => {
     habits.map((habit: HabitType) => {
       const { id, habitName, habitTrackArray } = habit;
       const { daysSinceHabitCreated } = getHabitAndDaysSinceCreation(id);
+
       if (daysSinceHabitCreated < habitTrackArray.length) {
-        const completed = habitTrackArray[daysSinceHabitCreated].completed;
-        if (!completed) {
+        if (!habitTrackArray[habitTrackArray.length - 1].completed) {
+          const completed = habitTrackArray[daysSinceHabitCreated].completed;
           habitsStillTracking.push({ habitName, id, completed });
         }
       }
@@ -460,8 +461,6 @@ export const ViewHabits = () => {
 
 // 6) Display "Add a new habit!" prompt when there are no active habits
 
-// 7) Fix "You are tracking x habits" on day of habit completion
-
 // COMPLETE
 // 1) Update "You are tracking {habits.length}" code that completedHabits is replaced with
 //    habits that have run their course, completed or unfulfilled.
@@ -472,3 +471,5 @@ export const ViewHabits = () => {
 
 // 4) Make it so that multiple items can be ticked off at the same time. Currently clicking multiple items during the timeout
 //    for completing a day starts and stops it.
+
+// 7) Fix "You are tracking x habits" on day of habit completion

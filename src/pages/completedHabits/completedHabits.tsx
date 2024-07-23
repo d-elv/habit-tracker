@@ -27,10 +27,15 @@ export const CompletedHabits = () => {
     let completedCount = 0;
     let unfulfilledCount = 0;
     habits.map((dbHabit: HabitType) => {
-      const { habitTrackArray } = dbHabit;
+      const { habitTrackArray, id } = dbHabit;
+      const daysSinceHabitCreated = getDaysSinceHabitCreation(id, habits);
+
       if (checkAllValuesAreTrue(habitTrackArray)) {
         completedCount = completedCount + 1;
-      } else {
+      } else if (
+        daysSinceHabitCreated >= habitTrackArray.length &&
+        !checkAllValuesAreTrue(habitTrackArray)
+      ) {
         unfulfilledCount = unfulfilledCount + 1;
       }
     });
@@ -104,7 +109,7 @@ export const CompletedHabits = () => {
             </div>
           ) : (
             <div>
-              There are{" "}
+              There {unfulfilledHabits === 1 ? "is" : "are"}{" "}
               <span className="unfulfilled-habits-count">
                 {unfulfilledHabits}
               </span>{" "}
