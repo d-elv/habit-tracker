@@ -22,6 +22,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faX } from "@fortawesome/free-solid-svg-icons";
 
 const formatDate = (firebaseTimestamp: Timestamp): string => {
+  if (firebaseTimestamp === null) {
+    return "";
+  }
   const timestampDate = firebaseTimestamp.toDate();
 
   const timestampYear = timestampDate.getFullYear();
@@ -113,10 +116,13 @@ export const ViewHabits = () => {
       const { daysSinceHabitCreated } = getHabitAndDaysSinceCreation(id);
       if (daysSinceHabitCreated < habitTrackArray.length) {
         const completed = habitTrackArray[daysSinceHabitCreated].completed;
-        habitsStillTracking.push({ habitName, id, completed });
+        if (!completed) {
+          habitsStillTracking.push({ habitName, id, completed });
+        }
       }
     });
     setActiveHabits(habitsStillTracking);
+    setActiveHabitsCount(habitsStillTracking.length);
   };
 
   useEffect(() => {
@@ -199,22 +205,7 @@ export const ViewHabits = () => {
     return habitArray.every((item) => item.completed);
   };
 
-  const getHabitsAreDoneTracking = () => {
-    let count = 0;
-    habits.map((dbHabit: HabitType) => {
-      const { daysToTrack, id } = dbHabit;
-      const { daysSinceHabitCreated } = getHabitAndDaysSinceCreation(id);
-      if (daysSinceHabitCreated < daysToTrack) {
-        return;
-      } else {
-        count = count + 1;
-      }
-    });
-    setActiveHabitsCount(habits.length - count);
-  };
-
   useEffect(() => {
-    getHabitsAreDoneTracking();
     calculateActiveHabits();
   }, [habits]);
 
@@ -272,7 +263,6 @@ export const ViewHabits = () => {
         navigate(`/habits/${newHabitName}`);
       }
     };
-    console.log(allActiveHabitsCompleted);
 
     return (
       <>
@@ -333,8 +323,14 @@ export const ViewHabits = () => {
       {isThisHome === null ? null : isThisHome ? null : <Navbar />}
       <header>
         <h1 className="header-middle">
-          You are tracking {activeHabitsCount}{" "}
-          {activeHabitsCount === 1 ? "Habit" : "Habits"}
+          {activeHabitsCount !== 0 ? (
+            <div>
+              You are tracking {activeHabitsCount}{" "}
+              {activeHabitsCount === 1 ? "Habit" : "Habits"}
+            </div>
+          ) : (
+            <div>Add a new habit to track!</div>
+          )}
         </h1>
       </header>
       <ul className="list-of-habits">
@@ -349,11 +345,7 @@ export const ViewHabits = () => {
             </h1>
           </div>
         ) : (
-          <div>
-            <h1 className="all-ticked-off-subheading">
-              Add a new habit to track!
-            </h1>
-          </div>
+          <div></div>
         )}
         {habits.map((dbHabit: HabitType, index: number) => {
           const { habitName, habitTrackArray, createdAt, id } = dbHabit;
@@ -466,7 +458,9 @@ export const ViewHabits = () => {
 
 // 5) Add option to extend habit length?
 
-// 6) Make
+// 6) Display "Add a new habit!" prompt when there are no active habits
+
+// 7) Fix "You are tracking x habits" on day of habit completion
 
 // COMPLETE
 // 1) Update "You are tracking {habits.length}" code that completedHabits is replaced with

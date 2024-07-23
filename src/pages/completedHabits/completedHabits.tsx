@@ -126,7 +126,10 @@ export const CompletedHabits = () => {
                 return (
                   <li key={index} className="completed-list-item">
                     <h2 className="habit-name">{habitName}</h2>
-                    <p>This habit lasted {habitTrackArray.length} days</p>
+                    <p>
+                      This habit lasted {habitTrackArray.length}{" "}
+                      {habitTrackArray.length === 1 ? "day" : "days"}
+                    </p>
                     <p>Nice work!</p>
                   </li>
                 );
@@ -139,7 +142,10 @@ export const CompletedHabits = () => {
                 return (
                   <li key={index} className="completed-list-item">
                     <h2 className="habit-name">{habitName}</h2>
-                    <p>This habit lasted {habitTrackArray.length} days</p>
+                    <p>
+                      This habit lasted {habitTrackArray.length}{" "}
+                      {habitTrackArray.length === 1 ? "day" : "days"}
+                    </p>
                     <p>
                       Unfortunately you didn't do it every day. Better luck next
                       time!

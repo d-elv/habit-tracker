@@ -53,7 +53,7 @@ export const HomePage: FC = () => {
         console.error(error);
       }
       setHabitName("");
-      setDaysToTrack(0);
+      setDaysToTrack(1);
     } else {
       return;
     }
