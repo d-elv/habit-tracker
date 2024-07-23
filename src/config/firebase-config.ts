@@ -8,12 +8,12 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const app = initializeApp({
-  apiKey: "AIzaSyB2trZoBAOu-KCX0_o7JUx2fnTi2V1Xe1Y",
-  authDomain: "reminders-but-good-1.firebaseapp.com",
-  projectId: "reminders-but-good-1",
-  storageBucket: "reminders-but-good-1.appspot.com",
-  messagingSenderId: "55396986195",
-  appId: "1:55396986195:web:eca6868ec65e0b4d8f85a6",
+  apiKey: "AIzaSyAAMwGP9xN1ckKnGJYyjZ8SXIsZbi3L6Ik",
+  authDomain: "habit-tracker-3.firebaseapp.com",
+  projectId: "habit-tracker-3",
+  storageBucket: "habit-tracker-3.appspot.com",
+  messagingSenderId: "518497803847",
+  appId: "1:518497803847:web:9ae31c885442b5ae985b62",
 });
 
 // Initialize Firebase
