@@ -115,9 +115,3 @@ export const HomePage: FC = () => {
     </>
   );
 };
-
-// TODO:
-// implement key command for going back from a viewHabit link quickly: https://barrymichaeldoyle.com/blog/keyboard-events
-
-// COMPLETE:
-// Implement handling for when habits are completed.

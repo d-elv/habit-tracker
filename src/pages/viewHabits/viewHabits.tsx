@@ -454,22 +454,3 @@ export const ViewHabits = () => {
     </>
   );
 };
-
-// TODO
-
-// 5) Add option to extend habit length?
-
-// 6) Display "Add a new habit!" prompt when there are no active habits
-
-// COMPLETE
-// 1) Update "You are tracking {habits.length}" code that completedHabits is replaced with
-//    habits that have run their course, completed or unfulfilled.
-
-// 2) Add pencil icon for editing habit Name
-
-// 3) Fix arrow pointing at current day so it only shows per habit. Thus only showing correct days.
-
-// 4) Make it so that multiple items can be ticked off at the same time. Currently clicking multiple items during the timeout
-//    for completing a day starts and stops it.
-
-// 7) Fix "You are tracking x habits" on day of habit completion

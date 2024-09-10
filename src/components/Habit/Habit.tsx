@@ -54,10 +54,3 @@ export const Habit = () => {
     </div>
   );
 };
-
-// TODO
-
-// COMPLETE
-
-// 1) Provide a "Not reach this day yet" colour so it doesn't look like
-//    you've either failed or succeeded

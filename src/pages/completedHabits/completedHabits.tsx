@@ -165,12 +165,3 @@ export const CompletedHabits = () => {
     </>
   );
 };
-
-// TODO
-
-// 2) Make Dropdown component close when a user clicks off it.
-// 3) Move Dropdown component code out.
-// 4) Make completed / unfulfilled read the days the habit ran to and from.
-//    and ran from xth of May to 1st of June. Nice work!
-
-// COMPLETED
