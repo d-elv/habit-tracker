@@ -1,18 +1,17 @@
 import "./completedHabits.css";
 import "../homePage/homepage.css";
-import "./Dropdown.css";
 import { useGetHabits } from "../../hooks/useGetHabits";
 import { HabitType } from "../../interfaces";
 import { DayOfHabitType } from "../../interfaces";
 import { useEffect, useState } from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { getDaysSinceHabitCreation } from "../../hooks/useGetDaysSinceHabitCreation";
+import { Dropdown } from "../../components/Dropdown/Dropdown";
 
 export const CompletedHabits = () => {
   const { habits } = useGetHabits();
   const [completedHabits, setCompletedHabits] = useState(0);
   const [unfulfilledHabits, setUnfulfilledHabits] = useState(0);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [dropdownSelection, setDropdownSelection] = useState("Completed");
 
   const checkAllValuesAreTrue = (habitArray: DayOfHabitType[]) => {
@@ -43,52 +42,6 @@ export const CompletedHabits = () => {
     setUnfulfilledHabits(unfulfilledCount);
   };
 
-  const Dropdown = () => {
-    const toggleDropdown = () => {
-      setIsDropdownOpen((previousState) => !previousState);
-    };
-
-    const handleAssign = (assignString: string) => {
-      if (dropdownSelection === assignString) {
-        return;
-      } else {
-        setDropdownSelection(assignString);
-      }
-    };
-
-    return (
-      <div className="dropdown-container">
-        <label className="dropdown-label">Filter Habits</label>
-        <button className="dropdown-button" onClick={toggleDropdown}>
-          <div className="down-facing-arrow"></div>
-          <span className="selected-dropdown-option">{dropdownSelection}</span>
-        </button>
-        {isDropdownOpen && (
-          <div className="dropdown-options-list-container">
-            <ul className="dropdown-options-list">
-              <li
-                className="dropdown-list-item"
-                onClick={() => {
-                  handleAssign("Completed");
-                }}
-              >
-                Completed
-              </li>
-              <li
-                className="dropdown-list-item"
-                onClick={() => {
-                  handleAssign("Unfulfilled");
-                }}
-              >
-                Unfulfilled
-              </li>
-            </ul>
-          </div>
-        )}
-      </div>
-    );
-  };
-
   return (
     <>
       <Navbar />
@@ -97,7 +50,10 @@ export const CompletedHabits = () => {
       </header>
       <div className="completed-habits-page-container">
         <div className="dropdown-container">
-          <Dropdown />
+          <Dropdown
+            dropdownSelection={dropdownSelection}
+            onSelectionChange={setDropdownSelection}
+          />
         </div>
 
         <h2 className="subheading">
