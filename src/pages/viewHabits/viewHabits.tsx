@@ -1,25 +1,17 @@
 import "./viewHabits.css";
 import "../homePage/homepage.css";
-import "./InputModal.css";
 import { useGetHabits } from "../../hooks/useGetHabits";
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { HabitType, DayOfHabitType } from "../../interfaces";
 import { useUpdateHabit } from "../../hooks/useUpdateHabit";
 import { useDeleteHabit } from "../../hooks/useDeleteHabit";
-import { useUpdateHabitName } from "../../hooks/useUpdateHabitName";
-import {
-  useState,
-  useEffect,
-  useRef,
-  createRef,
-  RefObject,
-  ChangeEvent,
-} from "react";
+import { useState, useEffect, useRef, createRef, RefObject } from "react";
 import { Timestamp } from "firebase/firestore";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { getDate } from "../../hooks/useGetDate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencil, faX } from "@fortawesome/free-solid-svg-icons";
+import { faPencil } from "@fortawesome/free-solid-svg-icons";
+import { InputModal } from "../../components/InputModal/InputModal";
 
 const formatDate = (firebaseTimestamp: Timestamp): string => {
   if (firebaseTimestamp === null) {
@@ -75,9 +67,7 @@ export const ViewHabits = () => {
   const { habits } = useGetHabits();
   const { updateHabit } = useUpdateHabit();
   const { deleteHabit } = useDeleteHabit();
-  const { updateHabitName } = useUpdateHabitName();
   const location = useLocation();
-  const navigate = useNavigate();
   const todaysFullDate = getDate();
 
   useEffect(() => {
@@ -237,72 +227,6 @@ export const ViewHabits = () => {
 
   const handlePencilLeave = () => {
     setPencilToHover(null);
-  };
-
-  const InputModal = ({
-    habitName,
-    setShowModal,
-    dataToUpdate,
-    id,
-  }: {
-    habitName: string;
-    setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-    dataToUpdate: string;
-    id: string;
-  }) => {
-    const [newHabitName, setNewHabitName] = useState<string>(habitName);
-
-    const handleSubmitHabitNameChange = async (
-      event: ChangeEvent<HTMLFormElement>
-    ) => {
-      event.preventDefault();
-      updateHabitName(id, newHabitName);
-      setShowModal(false);
-      const currentPathname = location.pathname;
-
-      if (currentPathname.includes(habitName.split(" ")[0])) {
-        navigate(`/habits/${newHabitName}`);
-      }
-    };
-
-    return (
-      <>
-        <div className="whole-page">
-          <div className="modal-container">
-            <div className="modal-title-and-close-button">
-              <h2 className="modal-title">Update {dataToUpdate}</h2>
-              <button
-                className="close-modal"
-                onClick={() => setShowModal(false)}
-              >
-                <FontAwesomeIcon icon={faX} />
-              </button>
-            </div>
-            <form onSubmit={handleSubmitHabitNameChange} className="modal-form">
-              <div className="label-and-input-container">
-                <label className="modal-input-label">
-                  Type in new{" "}
-                  <span className="modal-prompt-span">{dataToUpdate}</span>{" "}
-                  below
-                </label>
-                <input
-                  type="text"
-                  placeholder="New habit name here..."
-                  className="modal-input"
-                  defaultValue={habitName}
-                  autoFocus
-                  onFocus={(event) => event.target.select()}
-                  value={newHabitName}
-                  onChange={(event) => {
-                    setNewHabitName(event.target.value);
-                  }}
-                />
-              </div>
-            </form>
-          </div>
-        </div>
-      </>
-    );
   };
 
   const handleHabitNameChange = (id: string, habitName: string) => {
