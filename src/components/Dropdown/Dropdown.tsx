@@ -24,7 +24,7 @@ export const Dropdown = ({
   };
 
   return (
-    <div className="dropdown-container">
+    <div className="container">
       <label className="dropdown-label">Filter Habits</label>
       <button className="dropdown-button" onClick={toggleDropdown}>
         <div className="down-facing-arrow"></div>

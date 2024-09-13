@@ -47,3 +47,9 @@
   cursor: pointer;
   color: rgb(243, 241, 241);
 }
+
+@media (orientation: portrait) {
+  .nav-list {
+    justify-content: center;
+  }
+}
