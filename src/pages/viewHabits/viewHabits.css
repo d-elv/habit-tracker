@@ -109,6 +109,8 @@
   display: flex;
   padding-left: 0;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .tracker-progress-list-items {
@@ -121,9 +123,10 @@
 }
 
 .tracker-progress-box {
-  padding: 0.4em;
+  padding: 0.5em;
   background-color: red;
   margin: 4px;
+  border-radius: 4px;
 }
 
 .day-completed {
@@ -144,7 +147,6 @@
 .delete-button {
   background-color: rgb(157, 5, 5);
   border-radius: 4px;
-  width: 100%;
   padding-left: 0.6em;
   padding-right: 0.6em;
   padding-top: 0.3em;
@@ -168,8 +170,8 @@
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 3px;
-  margin-left: 0.35em;
-  margin-top: -0.4em;
+  margin-left: 0.48em;
+  margin-top: -0.42em;
   transform: rotate(45deg);
   animation-name: fadeIn;
   animation-duration: 0.5s;
