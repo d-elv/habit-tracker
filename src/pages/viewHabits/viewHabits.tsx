@@ -58,6 +58,7 @@ export const ViewHabits = () => {
   const [showTooltip, setShowTooltip] = useState(false);
   const [boxToHover, setBoxToHover] = useState<number | null>(null);
   const [pencilToHover, setPencilToHover] = useState<null | string>(null);
+  const [habitInListToShowTooltip, setHabitInListToShowTooltip] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [habitNameToChange, setHabitNameToChange] = useState("");
   const [idOfHabitToUpdate, setIdOfHabitToUpdate] = useState("");
@@ -208,9 +209,10 @@ export const ViewHabits = () => {
     );
   }
 
-  const handleTrackerHover = (id: string) => {
+  const handleTrackerHover = (id: string, index: number) => {
     const { daysSinceHabitCreated } = getHabitAndDaysSinceCreation(id);
     setShowTooltip(true);
+    setHabitInListToShowTooltip(index);
     setBoxToHover(daysSinceHabitCreated);
   };
 
@@ -291,7 +293,7 @@ export const ViewHabits = () => {
 
           if (habitTrackArray[daysSinceHabitCreated].completed && isThisHome) {
             return;
-            // Esnures habits ticked off for the day don't render
+            // Esnures habits ticked off for the day don't render on the homepage.
           }
 
           if (checkAllValuesAreTrue(habitTrackArray)) {
@@ -334,7 +336,7 @@ export const ViewHabits = () => {
               <ul
                 className="tracker-progress-list"
                 onMouseEnter={() => {
-                  handleTrackerHover(id);
+                  handleTrackerHover(id, index);
                 }}
                 onMouseLeave={() => {
                   setBoxToHover(null);
@@ -351,9 +353,11 @@ export const ViewHabits = () => {
 
                   return (
                     <li key={boxIndex} className="tracker-progress-list-items">
-                      {showTooltip && boxToHover === boxIndex && (
-                        <div className="tooltip-arrow"></div>
-                      )}
+                      {habitInListToShowTooltip === index &&
+                        showTooltip &&
+                        boxToHover === boxIndex && (
+                          <div className="tooltip-arrow"></div>
+                        )}
                       <div
                         className={`tracker-progress-box ${getClassName(
                           item.completed,
