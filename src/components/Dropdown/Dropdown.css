@@ -1,7 +1,7 @@
-.dropdown-container {
+.container {
   display: flex;
   flex-direction: column;
-  width: 200px;
+  width: 120px;
 }
 
 .dropdown-label {
@@ -56,4 +56,10 @@
 .dropdown-list-item:hover {
   background-color: rgb(123, 123, 123);
   cursor: pointer;
+}
+
+@media (orientation: portrait) {
+  .container {
+    width: 110px;
+  }
 }
