@@ -29,7 +29,7 @@
   flex-direction: row-reverse;
 }
 
-.edit-pencil-icon {
+/* .edit-pencil-icon {
   position: relative;
   bottom: 1.4em;
   right: 1.2em;
@@ -61,7 +61,7 @@
   box-shadow: 0 0 0 3px rgba(128, 128, 128, 0);
   transition: none;
   visibility: hidden;
-}
+} */
 
 .habitName-link {
   text-decoration: none;

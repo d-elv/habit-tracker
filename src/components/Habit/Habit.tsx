@@ -2,6 +2,8 @@ import { useParams, useOutletContext } from "react-router-dom";
 import { HabitType } from "../../interfaces.ts";
 import "./Habit.css";
 import { getDaysSinceHabitCreation } from "../../hooks/useGetDaysSinceHabitCreation.ts";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencil } from "@fortawesome/free-solid-svg-icons";
 
 export const Habit = () => {
   const { habitName } = useParams<{ habitName: string }>();
@@ -27,9 +29,14 @@ export const Habit = () => {
   console.log(habit.habitName, daysSinceHabitCreated);
 
   return (
-    <div>
+    <div className="habit-page-container">
       <div className="divider"></div>
-      <h2 className="habit-title">{habit.habitName} progress</h2>
+      <header className="habit-component-header">
+        <h2 className="habit-title">{habit.habitName} progress</h2>
+        <button className="edit-pencil-icon">
+          <FontAwesomeIcon icon={faPencil} />
+        </button>
+      </header>
       <div className="design-container">
         {habit.habitTrackArray.map((itemObject, index) => {
           const passedTodayBoolean = index < daysSinceHabitCreated + 1;

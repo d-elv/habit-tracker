@@ -325,7 +325,7 @@ export const ViewHabits = () => {
                       handleHabitNameChange(id, habitName);
                     }}
                   >
-                    <FontAwesomeIcon icon={faPencil} />
+                    {/* <FontAwesomeIcon icon={faPencil} /> */}
                   </div>
 
                   <Link to={`/habits/${habitName}`} className="habitName-link">
