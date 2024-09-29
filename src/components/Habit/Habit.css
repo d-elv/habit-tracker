@@ -59,14 +59,14 @@
 }
 
 .complete {
-  background-color: rgb(7, 125, 200);
+  background-color: var(--complete);
 }
 .incomplete {
-  background-color: rgb(200, 10, 7);
+  background-color: var(--failed);
 }
 
 .to-come {
-  background-color: rgb(198, 209, 0);
+  background-color: var(--later-day);
 }
 
 .invisible {

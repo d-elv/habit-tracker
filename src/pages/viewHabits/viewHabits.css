@@ -124,17 +124,17 @@
 
 .tracker-progress-box {
   padding: 0.5em;
-  background-color: red;
+  background-color: var(--failed);
   margin: 4px;
   border-radius: 4px;
 }
 
 .day-completed {
-  background-color: green;
+  background-color: var(--complete);
 }
 
 .day-to-come {
-  background-color: rgb(165, 165, 0);
+  background-color: var(--later-day);
 }
 
 .all-ticked-off-subheading {
