@@ -9,9 +9,6 @@ import { useState, useEffect, useRef, createRef, RefObject } from "react";
 import { Timestamp } from "firebase/firestore";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { getDate } from "../../hooks/useGetDate";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencil } from "@fortawesome/free-solid-svg-icons";
-import { InputModal } from "../../components/InputModal/InputModal";
 
 const formatDate = (firebaseTimestamp: Timestamp): string => {
   if (firebaseTimestamp === null) {
@@ -57,11 +54,7 @@ export const ViewHabits = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [showTooltip, setShowTooltip] = useState(false);
   const [boxToHover, setBoxToHover] = useState<number | null>(null);
-  const [pencilToHover, setPencilToHover] = useState<null | string>(null);
   const [habitInListToShowTooltip, setHabitInListToShowTooltip] = useState(0);
-  const [showModal, setShowModal] = useState(false);
-  const [habitNameToChange, setHabitNameToChange] = useState("");
-  const [idOfHabitToUpdate, setIdOfHabitToUpdate] = useState("");
   const habitsItemsRefs = useRef<Array<RefObject<HTMLDivElement>>>([]);
   const habitsRefs = useRef<Array<RefObject<HTMLLIElement>>>([]);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -223,30 +216,8 @@ export const ViewHabits = () => {
     return "day-to-come";
   };
 
-  const handlePencilHover = (habitName: string) => {
-    setPencilToHover(habitName);
-  };
-
-  const handlePencilLeave = () => {
-    setPencilToHover(null);
-  };
-
-  const handleHabitNameChange = (id: string, habitName: string) => {
-    setHabitNameToChange(habitName);
-    setIdOfHabitToUpdate(id);
-    setShowModal(true);
-  };
-
   return (
     <>
-      {showModal && (
-        <InputModal
-          dataToUpdate="Habit Name"
-          habitName={habitNameToChange}
-          id={idOfHabitToUpdate}
-          setShowModal={setShowModal}
-        />
-      )}
       {isThisHome === null ? null : isThisHome ? null : <Navbar />}
       <header>
         <h1 className="header-middle">
@@ -310,24 +281,7 @@ export const ViewHabits = () => {
                     onClick={() => handleUpdateHabit(id)}
                   />
                 )}
-                <div
-                  className="edit-pencil-and-habit-name"
-                  onMouseEnter={() => handlePencilHover(habitName)}
-                  onMouseLeave={handlePencilLeave}
-                >
-                  <div
-                    className={`edit-pencil-icon ${
-                      pencilToHover === habitName
-                        ? "pencil-visible"
-                        : "pencil-invisible"
-                    }`}
-                    onClick={() => {
-                      handleHabitNameChange(id, habitName);
-                    }}
-                  >
-                    <FontAwesomeIcon icon={faPencil} />
-                  </div>
-
+                <div className="edit-pencil-and-habit-name">
                   <Link to={`/habits/${habitName}`} className="habitName-link">
                     {habitName}
                   </Link>

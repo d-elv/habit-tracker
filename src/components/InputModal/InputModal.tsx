@@ -1,6 +1,6 @@
 import { useState, ChangeEvent } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faX } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faX } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useUpdateHabitName } from "../../hooks/useUpdateHabitName";
 import "./InputModal.css";
@@ -46,21 +46,26 @@ export const InputModal = ({
           <form onSubmit={handleSubmitHabitNameChange} className="modal-form">
             <div className="label-and-input-container">
               <label className="modal-input-label">
-                Type in new{" "}
-                <span className="modal-prompt-span">{dataToUpdate}</span> below
+                Type below and press confirm to update the{" "}
+                <span className="modal-prompt-span">{dataToUpdate}</span>.
               </label>
-              <input
-                type="text"
-                placeholder="New habit name here..."
-                className="modal-input"
-                defaultValue={habitName}
-                autoFocus
-                onFocus={(event) => event.target.select()}
-                value={newHabitName}
-                onChange={(event) => {
-                  setNewHabitName(event.target.value);
-                }}
-              />
+              <div className="input-text-and-confirm-button">
+                <input
+                  type="text"
+                  placeholder="New habit name here..."
+                  className="modal-input"
+                  defaultValue={habitName}
+                  autoFocus
+                  onFocus={(event) => event.target.select()}
+                  value={newHabitName}
+                  onChange={(event) => {
+                    setNewHabitName(event.target.value);
+                  }}
+                />
+                <button className="confirm-input-button">
+                  <FontAwesomeIcon icon={faCheck} />
+                </button>
+              </div>
             </div>
           </form>
         </div>

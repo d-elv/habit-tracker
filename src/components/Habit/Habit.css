@@ -5,8 +5,37 @@
   border: 1px solid rgb(114, 114, 114);
 }
 
+.habit-component-header {
+  display: grid;
+  grid-template-columns: 1fr repeat(1, auto) 1fr;
+  grid-column-gap: 5px;
+  justify-items: center;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 1em;
+}
+
 .habit-title {
-  text-align: center;
+  grid-column-start: 2;
+  margin: 0;
+}
+
+.edit-pencil-icon {
+  margin-left: auto;
+  background-color: rgb(153, 209, 209);
+  border: 3px solid rgb(110, 134, 141);
+  border-radius: 8px;
+  color: rgb(40, 40, 40);
+  font-size: 22px;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.edit-pencil-icon:active {
+  background-color: rgb(89, 123, 123);
+  border: 3px solid rgb(110, 134, 141);
+  color: rgb(40, 40, 40);
 }
 
 .list-item {

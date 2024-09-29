@@ -2,10 +2,15 @@ import { useParams, useOutletContext } from "react-router-dom";
 import { HabitType } from "../../interfaces.ts";
 import "./Habit.css";
 import { getDaysSinceHabitCreation } from "../../hooks/useGetDaysSinceHabitCreation.ts";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencil } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import { InputModal } from "../InputModal/InputModal.tsx";
 
 export const Habit = () => {
   const { habitName } = useParams<{ habitName: string }>();
   const habits = useOutletContext<HabitType[]>();
+  const [showModal, setShowModal] = useState(false);
 
   const habit =
     habitName !== undefined
@@ -24,12 +29,29 @@ export const Habit = () => {
   };
 
   const daysSinceHabitCreated = getDaysSinceHabitCreation(habit.id, habits);
-  console.log(habit.habitName, daysSinceHabitCreated);
 
   return (
-    <div>
+    <div className="habit-page-container">
+      {showModal && (
+        <InputModal
+          dataToUpdate="Habit Name"
+          habitName={habit.habitName}
+          id={habit.id}
+          setShowModal={setShowModal}
+        />
+      )}
       <div className="divider"></div>
-      <h2 className="habit-title">{habit.habitName} progress</h2>
+      <header className="habit-component-header">
+        <h2 className="habit-title">{habit.habitName} progress</h2>
+        <button
+          className="edit-pencil-icon"
+          onClick={() => {
+            setShowModal(true);
+          }}
+        >
+          <FontAwesomeIcon icon={faPencil} />
+        </button>
+      </header>
       <div className="design-container">
         {habit.habitTrackArray.map((itemObject, index) => {
           const passedTodayBoolean = index < daysSinceHabitCreated + 1;
