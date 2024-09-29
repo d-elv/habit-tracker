@@ -4,6 +4,9 @@
   --middle: rgb(122, 184, 191);
   --lightest: rgb(196, 238, 242);
   --brown: rgb(166, 116, 88);
+  --complete: rgb(7, 125, 200);
+  --later-day: rgb(17, 151, 120);
+  --failed: rgb(200, 10, 7);
 }
 
 header {

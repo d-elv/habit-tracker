@@ -24,6 +24,7 @@ export const Habit = () => {
   };
 
   const daysSinceHabitCreated = getDaysSinceHabitCreation(habit.id, habits);
+  console.log(habit.habitName, daysSinceHabitCreated);
 
   return (
     <div>
@@ -31,7 +32,6 @@ export const Habit = () => {
       <h2 className="habit-title">{habit.habitName} progress</h2>
       <div className="design-container">
         {habit.habitTrackArray.map((itemObject, index) => {
-          const isLastArrayItem = index === habit.habitTrackArray.length - 1;
           const passedTodayBoolean = index < daysSinceHabitCreated + 1;
           return (
             <li key={index} className="list-item">
@@ -39,13 +39,9 @@ export const Habit = () => {
                 className={`day-container ${getClassName(
                   itemObject.completed,
                   passedTodayBoolean
-                )}`}
+                )} ${daysSinceHabitCreated === index ? "today" : ""}`}
               >
                 {itemObject.day}
-              </div>
-              <div className={`${isLastArrayItem ? "invisible" : "separator"}`}>
-                <div className="line"></div>
-                <div className="arrow-head"></div>
               </div>
             </li>
           );
