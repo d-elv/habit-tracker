@@ -24,6 +24,7 @@ export const Habit = () => {
   };
 
   const daysSinceHabitCreated = getDaysSinceHabitCreation(habit.id, habits);
+  console.log(habit.habitName, daysSinceHabitCreated);
 
   return (
     <div>
@@ -38,7 +39,7 @@ export const Habit = () => {
                 className={`day-container ${getClassName(
                   itemObject.completed,
                   passedTodayBoolean
-                )}`}
+                )} ${daysSinceHabitCreated === index ? "today" : ""}`}
               >
                 {itemObject.day}
               </div>

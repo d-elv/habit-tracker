@@ -28,22 +28,24 @@
   display: flex;
   justify-content: center;
   flex-grow: 1;
-  height: 100px;
+  height: 80px;
   min-width: 68px;
   align-items: center;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  font-weight: 100;
   color: white;
   font-size: 2rem;
-  text-align: center;
   margin: 10px;
   cursor: pointer;
   position: relative;
   top: 0px;
   left: 0px;
-  border-radius: 20px;
+  border-radius: 25px;
   box-shadow: 1px 1px 5px 0px rgba(82, 82, 82, 0.75);
   transition: all 150ms ease-in-out;
+}
+
+.today {
+  border: 8px solid rgb(15, 15, 15);
 }
 
 .day-container:hover {
