@@ -45,7 +45,7 @@ type ActiveHabitType = {
 
 export const ViewHabits = () => {
   const [isThisHome, setIsThisHome] = useState<boolean | null>(null);
-  const [buttonClickedId, setButtonClickedId] = useState("");
+  const [buttonClickedIds, setButtonClickedIds] = useState<Array<string>>([]);
   const [activeHabitsCount, setActiveHabitsCount] = useState<number>(0);
   const [activeHabits, setActiveHabits] = useState<ActiveHabitType[]>([]);
   const [allActiveHabitsCompleted, setAllActiveHabitsCompleted] = useState<
@@ -57,7 +57,7 @@ export const ViewHabits = () => {
   const [habitInListToShowTooltip, setHabitInListToShowTooltip] = useState(0);
   const habitsItemsRefs = useRef<Array<RefObject<HTMLDivElement>>>([]);
   const habitsRefs = useRef<Array<RefObject<HTMLLIElement>>>([]);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRefs = useRef<Array<NodeJS.Timeout | null>>([]);
   const { habits } = useGetHabits();
   const { updateHabit } = useUpdateHabit();
   const { deleteHabit } = useDeleteHabit();
@@ -158,26 +158,29 @@ export const ViewHabits = () => {
     await updateHabit(id, habitArrayToUpdate);
   };
 
-  const handleUpdateHabit = (id: string) => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = null;
-      setButtonClickedId("");
+  const handleCompleteHabit = (id: string, index: number) => {
+    if (timeoutRefs.current[index]) {
+      clearTimeout(timeoutRefs.current[index]);
+      timeoutRefs.current[index] = null;
+      setButtonClickedIds((prevClickedIds) =>
+        prevClickedIds.filter((clickedId) => clickedId !== id)
+      );
       return;
     }
-
-    setButtonClickedId(id);
+    setButtonClickedIds((prevClickedIds) => [...prevClickedIds, id]);
 
     if (checkIfCompleteToday(id)) {
       completeTodaysHabit(id);
-      setButtonClickedId("");
-      timeoutRef.current = null;
+      setButtonClickedIds([]);
+      timeoutRefs.current[index] = null;
       return;
     } else {
-      timeoutRef.current = setTimeout(() => {
+      timeoutRefs.current[index] = setTimeout(() => {
         completeTodaysHabit(id);
-        setButtonClickedId("");
-        timeoutRef.current = null;
+        setButtonClickedIds((prevClickedIds) =>
+          prevClickedIds.filter((clickedId) => clickedId !== id)
+        );
+        timeoutRefs.current[index] = null;
       }, 2000);
     }
   };
@@ -232,6 +235,7 @@ export const ViewHabits = () => {
         </h1>
       </header>
       <ul className="list-of-habits">
+        {/* only shows if you've ticked off all habits for the day */}
         {allActiveHabitsCompleted && isThisHome && activeHabitsCount !== 0 ? (
           <div>
             <h1 className="all-ticked-off-subheading">
@@ -264,28 +268,27 @@ export const ViewHabits = () => {
 
           if (habitTrackArray[daysSinceHabitCreated].completed && isThisHome) {
             return;
-            // Esnures habits ticked off for the day don't render on the homepage.
+            // Ensures habits ticked off for the day don't render on the homepage.
           }
 
           if (checkAllValuesAreTrue(habitTrackArray)) {
             return;
           }
+
           return (
             <li key={index} className={"habit-list-item"}>
               <div className="button-and-habitName-link">
                 {id && (
                   <button
                     className={`complete-habit-button ${
-                      buttonClickedId === id ? "turn-green" : ""
+                      buttonClickedIds.includes(id) ? "turn-blue" : ""
                     }`}
-                    onClick={() => handleUpdateHabit(id)}
+                    onClick={() => handleCompleteHabit(id, index)}
                   />
                 )}
-                <div className="edit-pencil-and-habit-name">
-                  <Link to={`/habits/${habitName}`} className="habitName-link">
-                    {habitName}
-                  </Link>
-                </div>
+                <Link to={`/habits/${habitName}`} className="habitName-link">
+                  {habitName}
+                </Link>
               </div>
               <ul
                 className="tracker-progress-list"
