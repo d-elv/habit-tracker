@@ -24,11 +24,6 @@
   border: 1px solid cadetblue;
 }
 
-.edit-pencil-and-habit-name {
-  display: flex;
-  flex-direction: row-reverse;
-}
-
 .habitName-link {
   text-decoration: none;
   margin-left: 0.5em;

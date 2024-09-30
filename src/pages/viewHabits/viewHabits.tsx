@@ -232,6 +232,7 @@ export const ViewHabits = () => {
         </h1>
       </header>
       <ul className="list-of-habits">
+        {/* only shows if you've ticked off all habits for the day */}
         {allActiveHabitsCompleted && isThisHome && activeHabitsCount !== 0 ? (
           <div>
             <h1 className="all-ticked-off-subheading">
@@ -264,7 +265,7 @@ export const ViewHabits = () => {
 
           if (habitTrackArray[daysSinceHabitCreated].completed && isThisHome) {
             return;
-            // Esnures habits ticked off for the day don't render on the homepage.
+            // Ensures habits ticked off for the day don't render on the homepage.
           }
 
           if (checkAllValuesAreTrue(habitTrackArray)) {
@@ -281,11 +282,9 @@ export const ViewHabits = () => {
                     onClick={() => handleUpdateHabit(id)}
                   />
                 )}
-                <div className="edit-pencil-and-habit-name">
-                  <Link to={`/habits/${habitName}`} className="habitName-link">
-                    {habitName}
-                  </Link>
-                </div>
+                <Link to={`/habits/${habitName}`} className="habitName-link">
+                  {habitName}
+                </Link>
               </div>
               <ul
                 className="tracker-progress-list"
