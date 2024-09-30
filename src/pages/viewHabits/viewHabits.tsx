@@ -162,7 +162,9 @@ export const ViewHabits = () => {
     if (timeoutRefs.current[index]) {
       clearTimeout(timeoutRefs.current[index]);
       timeoutRefs.current[index] = null;
-      setButtonClickedIds([]);
+      setButtonClickedIds((prevClickedIds) =>
+        prevClickedIds.filter((clickedId) => clickedId !== id)
+      );
       return;
     }
     setButtonClickedIds((prevClickedIds) => [...prevClickedIds, id]);
@@ -279,7 +281,7 @@ export const ViewHabits = () => {
                 {id && (
                   <button
                     className={`complete-habit-button ${
-                      buttonClickedIds.includes(id) ? "turn-green" : ""
+                      buttonClickedIds.includes(id) ? "turn-blue" : ""
                     }`}
                     onClick={() => handleCompleteHabit(id, index)}
                   />

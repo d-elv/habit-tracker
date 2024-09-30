@@ -51,17 +51,17 @@
   cursor: pointer;
 }
 
-@keyframes turnGreen {
+@keyframes turnBlue {
   0% {
     background-color: rgb(226, 226, 226);
   }
   100% {
-    background-color: rgb(60, 235, 60);
+    background-color: var(--complete);
   }
 }
 
-.turn-green {
-  animation-name: turnGreen;
+.turn-blue {
+  animation-name: turnBlue;
   animation-duration: 2.1s;
   animation-timing-function: ease-out;
 }
